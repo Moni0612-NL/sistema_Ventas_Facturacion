@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura Policamisetas</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Fondo gris clarito */
+        }
+        .factura-container {
+            background-color: #ffffff; /* Fondo blanco para la tabla */
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #4CAF50; /* Color verde limonsito */
+        }
+        .table thead th {
+            background-color: #e0f7fa; /* Verde limonsito */
+            color: #4CAF50; /* Color verde para los encabezados */
+        }
+        .btn-custom {
+            background-color: #4CAF50; /* Verde limonsito */
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #388E3C; /* Verde más oscuro al pasar el ratón */
+        }
+    </style>
+</head>
+<body>
+    <div class="container factura-container">
+        <h1 class="text-center">Factura Policamisetas</h1>
+        <h2>Cliente: {{ cliente.nombre }} ({{ cliente.num_documento }})</h2>
+
+        <h3>Detalles de la Venta</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID de Venta</th>
+                    <th>Cantidad de Camisetas</th>
+                    <th>ID de Camiseta</th>
+                    <th>ID de Estampa Frontal</th>
+                    <th>ID de Estampa Trasera</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ venta.idventa }}</td>
+                    <td>{{ venta.cantidad }}</td>
+                    <td>{{ venta.camiseta_id }}</td>
+                    <td>{{ venta.idestampa_frontal }}</td>
+                    <td>{{ venta.idestampa_trasera }}</td>
+                    <td>${{ venta.total }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <a href="{{ url_for('index') }}" class="btn btn-custom">Volver al inicio</a>
+        </div>
+    </div>
+
+    <!-- Enlace a Bootstrap JS y dependencias (opcional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

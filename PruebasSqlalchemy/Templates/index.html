@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoliCamisetas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Gris claro */
+            color: #333;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            color: #32CD32; /* Verde limonsito */
+        }
+        .container {
+            flex: 1;
+            margin-top: 50px;
+        }
+        footer {
+            background-color: #32CD32;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        /* Asegura que el contenido no toque el footer */
+        .content-wrapper {
+            padding-bottom: 100px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container content-wrapper">
+        <h1>Bienvenido a PoliCamisetas</h1>
+        <hr>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('realizar_venta') }}" method="POST">
+            <div class="form-group">
+                <label for="cliente_id">Cliente ID:</label>
+                <input type="number" name="cliente_id" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="camiseta_id">Selecciona Camiseta:</label>
+                <select name="camiseta_id" class="form-control" required>
+                    {% for camiseta in camisetas %}
+                        <option value="{{ camiseta.idcamiseta }}">{{ camiseta.talla }} - {{ camiseta.color }} - ${{ camiseta.precio }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" name="cantidad" class="form-control" required min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="idestampa_frontal">Selecciona Estampa Frontal:</label>
+                <select name="idestampa_frontal" class="form-control">
+                    <option value="0">Ninguna</option>
+                    {% for estampa in estampas %}
+                        <option value="{{ estampa.idestampa }}">{{ estampa.nombre }} - ${{ estampa.tarifa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="idestampa_trasera">Selecciona Estampa Trasera:</label>
+                <select name="idestampa_trasera" class="form-control">
+                    <option value="0">Ninguna</option>
+                    {% for estampa in estampas %}
+                        <option value="{{ estampa.idestampa }}">{{ estampa.nombre }} - ${{ estampa.tarifa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Realizar Venta</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 PoliCamisetas. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
